@@ -112,7 +112,6 @@
   <ItemGroup>
     <ClCompile Include="Coat.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DynamicVector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="UI.cpp" />

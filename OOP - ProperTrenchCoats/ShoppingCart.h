@@ -11,5 +11,7 @@ public:
 
 	void add(const Coat& coat);
 
+	double totalCost();
+
 	bool isEmpty();
 };

@@ -21,9 +21,6 @@
     <ClCompile Include="Coat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Repository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
