@@ -6,15 +6,17 @@ class Controller
 {
 private:
 	Repository repo;
-	//ShoppingCart cart;
+	ShoppingCart cart;
 
 public:
 	// default constructor for the controller
 	Controller(const Repository& r) : repo(r) {}
 
-	// return the repository of the controller
+	// return the repository and shopping cart of the controller
 	Repository getRepo() const { return repo; }
-	//ShoppingCart getCart() const { return cart; }
+	ShoppingCart getCart() const { return cart; }
+
+	/// ---------- Repository ---------- ///
 
 	/*
 		Adds an new coat to the repository
@@ -41,6 +43,9 @@ public:
 	*/
 	void updateCoatToRepository(const std::string& ID, const double& new_price, const int& new_quantity, const std::string& new_link);
 	
-	DynamicVector getAllCoats() const { return repo.getCoats(); }
+	DynamicVector<Coat> getAllCoats() const { return repo.getCoats(); }
+
+	/// ---------- Shopping Cart ---------- ///
+
 	//void addCoatToCart(const Coat& coat);
 };

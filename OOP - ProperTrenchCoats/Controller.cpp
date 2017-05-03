@@ -1,5 +1,7 @@
 #include "Controller.h"
 
+/// ---------- Repository ---------- ///
+
 void Controller::addCoatToRepository(const std::string & ID, const int & size, const std::string & colour, const double & price, const int & quantity, const std::string & link)
 {
 	Coat coat{ ID, size, colour, price, quantity, link };
@@ -17,3 +19,5 @@ void Controller::updateCoatToRepository(const std::string & ID, const double & n
 	Coat newCoat{ ID, existingCoat.getSize(), existingCoat.getColour(), new_price, new_quantity, new_link };
 	this->repo.updateCoat(ID, newCoat);
 }
+
+/// ---------- Shopping Cart ---------- ///

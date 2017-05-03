@@ -5,7 +5,7 @@
 class Repository
 {
 private:
-	DynamicVector coats;
+	DynamicVector<Coat> coats;
 
 public:
 	/*
@@ -44,5 +44,5 @@ public:
 	*/
 	Coat findByID(const std::string& ID);
 
-	DynamicVector getCoats() const { return coats; }
+	DynamicVector<Coat> getCoats() const { return coats; }
 };

@@ -58,7 +58,7 @@ void UI::addCoatToRepo()
 
 void UI::displayAllCoatsRepo()
 {
-	DynamicVector elems = this->ctrl.getAllCoats();
+	DynamicVector<Coat> elems = this->ctrl.getAllCoats();
 	Coat* coats = elems.getAllElems();
 	for (int i = 0; i < elems.getSize(); i++) {
 		cout << "Coat ID: " << coats[i].getID() << " ";
@@ -120,6 +120,7 @@ void UI::run()
 				cin.ignore();
 				if (commandRepo == 0)
 					break;
+
 				switch (commandRepo)
 				{
 				case 1: {
@@ -154,7 +155,28 @@ void UI::run()
 					break;
 				}
 				} //end of switch
-			}
-		}
+			} //
+		}    // end of admin
+
+		// User Mode
+		if (command == 2)
+		{
+			while (true)
+			{
+				UI::printShoppingCartMenu();
+				int commandUser{ 0 };
+				cout << "|| Input command: ";
+				cin >> commandUser;
+				cin.ignore();
+				if (commandUser == 0)
+					break;
+
+				switch (commandUser)
+				{
+				default:
+					break;
+				} //end of switch
+			} //
+		}    // end of user
 	}
 }

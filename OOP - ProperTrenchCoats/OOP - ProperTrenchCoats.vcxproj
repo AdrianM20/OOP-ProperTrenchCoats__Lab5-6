@@ -114,6 +114,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Repository.cpp" />
+    <ClCompile Include="ShoppingCart.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Validators.cpp" />
   </ItemGroup>

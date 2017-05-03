@@ -33,6 +33,9 @@
     <ClCompile Include="Validators.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShoppingCart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coat.h">
