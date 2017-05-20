@@ -8,11 +8,15 @@ class ShoppingCart
 {
 private:
 	DynamicVector<Product> products;
+	DynamicVector<Product> cart;
+	int current;
 	
 public:
 	ShoppingCart();
 
 	void add(const Product& coat);
+
+	Coat getCurrentCoat();
 
 	double totalCost();
 
