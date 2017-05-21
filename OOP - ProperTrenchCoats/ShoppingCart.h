@@ -14,6 +14,8 @@ private:
 public:
 	ShoppingCart();
 
+	void addAvailableCoats(const Product& coat);
+
 	void add(const Product& coat);
 
 	Coat getCurrentCoat();

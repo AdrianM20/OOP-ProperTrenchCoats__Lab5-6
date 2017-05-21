@@ -44,5 +44,13 @@ public:
 	*/
 	Coat findByID(const std::string& ID);
 
+	/*
+		Gets coats having a given size
+		Input: size - int
+		Output: a vector containing the coats having the given size
+	*/
+	DynamicVector<Coat> getCoatsbySize(const int& size);
+
+	// Returns all coats
 	DynamicVector<Coat> getCoats() const { return coats; }
 };

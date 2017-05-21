@@ -26,6 +26,10 @@ void UI::printRepositoryMenu()
 void UI::printShoppingCartMenu()
 {
 	cout << "\n||----------Possible commands----------||" << endl;
+	cout << "|| 1 - See trench coats                ||" << endl;
+	cout << "|| 2 - Add coat to cart                ||" << endl;
+	cout << "|| 3 - Next coat                       ||" << endl;
+	cout << "|| 4 - See shopping cart               ||" << endl;
 	cout << "|| 0 - Back                            ||" << endl;
 	cout << "||----------Possible commands----------||" << endl;
 }
@@ -96,6 +100,14 @@ void UI::updateCoatFromRepo()
 	this->ctrl.updateCoatToRepository(ID, new_price, new_quantity, new_link);
 }
 
+void UI::addSizeCoats()
+{
+	cout << "Enter the size for your coat: ";
+	std::string size;
+	getline(cin, size);
+
+}
+
 void UI::run()
 {
 	while (true)
@@ -161,6 +173,7 @@ void UI::run()
 		// User Mode
 		if (command == 2)
 		{
+			UI::addSizeCoats();
 			while (true)
 			{
 				UI::printShoppingCartMenu();

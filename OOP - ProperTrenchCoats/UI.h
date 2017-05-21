@@ -20,5 +20,5 @@ private:
 	void displayAllCoatsRepo();
 	void removeCoatFromRepo();
 	void updateCoatFromRepo();
-	void addCoatToCart();
+	void addSizeCoats();
 };

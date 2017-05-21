@@ -5,9 +5,14 @@ ShoppingCart::ShoppingCart()
 	this->current = 0;
 }
 
-void ShoppingCart::add(const Product & coat)
+void ShoppingCart::addAvailableCoats(const Product & coat)
 {
 	this->products.add(coat);
+}
+
+void ShoppingCart::add(const Product & coat)
+{
+	this->cart.add(coat);
 }
 
 Coat ShoppingCart::getCurrentCoat()

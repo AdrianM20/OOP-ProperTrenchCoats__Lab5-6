@@ -66,3 +66,14 @@ Coat Repository::findByID(const std::string& ID)
 
 	return Coat{};
 }
+
+DynamicVector<Coat> Repository::getCoatsbySize(const int & size)
+{
+	DynamicVector<Coat> coats;
+	for (int i = 0; i < this->coats.getSize(); i++) {
+		Coat c = coats[i];
+		if (c.getSize == size)
+			coats.add(c);
+	}
+	return coats;
+}
