@@ -135,11 +135,14 @@ void UI::showCart()
 		cout << "|| Size: " << coatsInCart[i].getSize() << " ";
 		cout << "|| Price: " << coatsInCart[i].getPrice() << endl;
 	}
+	if (this->ctrl.getCart().isEmpty())
+		cout << "\nThe shopping cart is empty" << endl;
 	cout << "\n\tTotal Cost: " << this->ctrl.getCart().totalCost() << endl;
 	cout << "\nWhat would you lie to do?" << endl;
 	cout << "1 - Buy coats" << endl;
 	cout << "2 - Remove everything from cart" << endl;
 	cout << "0 - Continue shopping" << endl;
+	cout << "\nInput command: ";
 	int command;
 	cin >> command;
 	cin.ignore();
@@ -147,7 +150,10 @@ void UI::showCart()
 	switch (command)
 	{
 	case 1: {
-		this->ctrl.buyProducts();
+		if (this->ctrl.getCart().isEmpty())
+			cout << "Cannot buy because cart is empty." << endl;
+		else
+			this->ctrl.buyProducts();
 		break;
 	}
 	case 2: {

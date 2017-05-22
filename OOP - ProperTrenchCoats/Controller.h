@@ -47,12 +47,46 @@ public:
 
 	/// ---------- Shopping Cart ---------- ///
 
+	/*
+		Clears the products dynamic vector from cart
+	*/
 	void clearProducts();
+
+	/*
+		Adds all coats to the available products in cart
+	*/
 	void addAllAvailableCoats();
+
+	/*
+		Add all coats having a given size to the available product cart
+		Input: size - int
+	*/
 	void addAllSizeCoats(const int& size);
+
+	/*
+		Add a given coat to the shopping cart
+		Input: c - Coat
+	*/
 	void addCoatToCart(const Coat& c);
+
+	/*
+		Starts iterating through the available products
+	*/
 	void startShopping();
+
+	/*
+		Jumps to the next product in list
+	*/
 	void nextCoatShopping();
+
+	/*
+		Buy a product. For each item in the shopping cart removes one item from the repository
+		Clears shopping cart and available products
+	*/
 	void buyProducts();
+
+	/*
+		Clears shopping cart
+	*/
 	void eraseCart();
 };

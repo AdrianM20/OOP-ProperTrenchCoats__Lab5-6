@@ -10,6 +10,11 @@ void ShoppingCart::clearProducts()
 	this->products.setSize(0);
 }
 
+void ShoppingCart::clearCart()
+{
+	this->cart.setSize(0);
+}
+
 void ShoppingCart::addAvailableCoats(const Product & coat)
 {
 	this->products.add(coat);
