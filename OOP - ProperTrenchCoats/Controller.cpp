@@ -21,3 +21,52 @@ void Controller::updateCoatToRepository(const std::string & ID, const double & n
 }
 
 /// ---------- Shopping Cart ---------- ///
+
+void Controller::clearProducts()
+{
+	this->cart.clearProducts();
+}
+
+void Controller::addAllAvailableCoats()
+{
+	DynamicVector<Coat> coats = getAllCoats();
+	for (int i = 0; i < coats.getSize(); i++) {
+		this->cart.addAvailableCoats(coats[i]);
+	}
+}
+
+void Controller::addAllSizeCoats(const int & size)
+{
+	DynamicVector<Coat> coats = getAllCoats();
+	for (int i = 0; i < coats.getSize(); i++) {
+		if (coats[i].getSize() == size)
+			this->cart.addAvailableCoats(coats[i]);
+	}
+}
+
+void Controller::addCoatToCart(const Coat & c)
+{
+	this->cart.add(c);
+}
+
+void Controller::startShopping()
+{
+	this->cart.start();
+}
+
+void Controller::nextCoatShopping()
+{
+	this->cart.next();
+}
+
+void Controller::buyProducts()
+{
+	DynamicVector<Coat> coatsInCart = this->cart.getCartContents();
+	for (int i = 0; i < coatsInCart.getSize(); i++) {
+		this->repo.sellCoatByID(coatsInCart[i].getID());
+	}
+}
+
+void Controller::eraseCart()
+{
+}

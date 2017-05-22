@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "UI.h"
+#include <crtdbg.h>
 
 using namespace std;
 
@@ -31,6 +32,8 @@ int main()
 	Controller ctrl{ repo };
 	UI ui{ ctrl };
 	ui.run();
+
+	//_CrtDumpMemoryLeaks();
 
 	return 0;
 }

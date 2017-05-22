@@ -1,5 +1,6 @@
 #include "UI.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -32,6 +33,11 @@ void UI::printShoppingCartMenu()
 	cout << "|| 4 - See shopping cart               ||" << endl;
 	cout << "|| 0 - Back                            ||" << endl;
 	cout << "||----------Possible commands----------||" << endl;
+}
+
+bool UI::is_number(const std::string & s)
+{
+	return std::all_of(s.begin(), s.end(), ::isdigit);
 }
 
 void UI::addCoatToRepo()
@@ -103,93 +109,216 @@ void UI::updateCoatFromRepo()
 void UI::addSizeCoats()
 {
 	cout << "Enter the size for your coat: ";
-	std::string size;
-	getline(cin, size);
+	std::string size_str;
+	getline(cin, size_str);
+	if (size_str.empty()) {
+		this->ctrl.clearProducts();
+		this->ctrl.addAllAvailableCoats();
+	}
+	else {
+		if (UI::is_number(size_str)) {
+			int size_i = stoi(size_str);
+			this->ctrl.clearProducts();
+			this->ctrl.addAllSizeCoats(size_i);
+		}
+		else
+			throw "Wrong input for coat size. Make sure you type in just numbers.";
+	}
+}
 
+void UI::showCart()
+{
+	DynamicVector<Coat> coatsInCart = this->ctrl.getCart().getCartContents();
+	cout << "\nProducts in shopping cart: " << endl;
+	for (int i = 0; i < coatsInCart.getSize(); i++) {
+		cout << "Colour: " << coatsInCart[i].getColour() << " ";
+		cout << "|| Size: " << coatsInCart[i].getSize() << " ";
+		cout << "|| Price: " << coatsInCart[i].getPrice() << endl;
+	}
+	cout << "\n\tTotal Cost: " << this->ctrl.getCart().totalCost() << endl;
+	cout << "\nWhat would you lie to do?" << endl;
+	cout << "1 - Buy coats" << endl;
+	cout << "2 - Remove everything from cart" << endl;
+	cout << "0 - Continue shopping" << endl;
+	int command;
+	cin >> command;
+	cin.ignore();
+
+	switch (command)
+	{
+	case 1: {
+		this->ctrl.buyProducts();
+		break;
+	}
+	case 2: {
+		this->ctrl.eraseCart();
+		break;
+	}
+	case 0: { break; }
+	}
 }
 
 void UI::run()
 {
 	while (true)
 	{
-		UI::printMenu();
-		int command{ 0 };
-		cout << "|| Input command: ";
-		cin >> command;
-		cin.ignore();
-		if (command == 0)
-			break;
+		try {
+			UI::printMenu();
+			int command{ 0 };
+			cout << "|| Input command: ";
+			cin >> command;
+			cin.ignore();
+			if (command == 0)
+				break;
 
-		// Administrator mode
-		if (command == 1)
-		{
-			while (true)
+			// Administrator mode
+			if (command == 1)
 			{
-				UI::printRepositoryMenu();
-				int commandRepo{ 0 };
-				cout << "|| Input command: ";
-				cin >> commandRepo;
-				cin.ignore();
-				if (commandRepo == 0)
-					break;
-
-				switch (commandRepo)
+				while (true)
 				{
-				case 1: {
-					try {
-						this->addCoatToRepo();
-					}
-					catch (const char* msg) {
-						cerr << msg << endl;
-					}
-					break;
-				}
-				case 2: {
-					this->displayAllCoatsRepo();
-					break;
-				}
-				case 3: {
-					try {
-						this->removeCoatFromRepo();
-					}
-					catch (const char* msg) {
-						cerr << msg << endl;
-					}
-					break;
-				}
-				case 4: {
-					try {
-						this->updateCoatFromRepo();
-					}
-					catch (const char* msg) {
-						cerr << msg << endl;
-					}
-					break;
-				}
-				} //end of switch
-			} //
-		}    // end of admin
+					UI::printRepositoryMenu();
+					int commandRepo{ 0 };
+					cout << "|| Input command: ";
+					cin >> commandRepo;
+					cin.ignore();
+					if (commandRepo == 0)
+						break;
 
-		// User Mode
-		if (command == 2)
-		{
-			UI::addSizeCoats();
-			while (true)
+					switch (commandRepo)
+					{
+					case 1: {
+						try {
+							this->addCoatToRepo();
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					case 2: {
+						this->displayAllCoatsRepo();
+						break;
+					}
+					case 3: {
+						try {
+							this->removeCoatFromRepo();
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					case 4: {
+						try {
+							this->updateCoatFromRepo();
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					} //end of switch
+				} //
+			}    // end of admin
+
+				 // User Mode
+			if (command == 2)
 			{
-				UI::printShoppingCartMenu();
-				int commandUser{ 0 };
-				cout << "|| Input command: ";
-				cin >> commandUser;
-				cin.ignore();
-				if (commandUser == 0)
-					break;
-
-				switch (commandUser)
+				UI::addSizeCoats();
+				while (true)
 				{
-				default:
-					break;
-				} //end of switch
-			} //
-		}    // end of user
+					UI::printShoppingCartMenu();
+					int commandUser{ 0 };
+					cout << "|| Input command: ";
+					cin >> commandUser;
+					cin.ignore();
+					if (commandUser == 0)
+						break;
+
+					switch (commandUser)
+					{
+					case 1: {
+						try {
+							if (this->ctrl.getCart().noProducts()) {
+								cout << "No coats available." << endl;
+								break;
+							}
+							this->ctrl.startShopping();
+							Coat c = this->ctrl.getCart().getCurrentCoat();
+							cout << "\nNow showing: " << endl;
+							cout << "\tSize: " << c.getSize() << endl;
+							cout << "\tColour: " << c.getColour() << endl;
+							cout << "\tPrice: " << c.getPrice() << endl;
+							std::string availability = "";
+							if (c.getQuantity() > 3)
+								availability = "In Stock";
+							else if (c.getQuantity() <= 3)
+									availability = "Limited Stock";
+							else availability = "Out of stock";
+							cout << "\tAvailability: " << availability << endl;
+							cout << "\n\tTotal Cost: " << this->ctrl.getCart().totalCost() << endl;
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					case 2: {
+						try {
+							if (this->ctrl.getCart().getCurrentCoat().getQuantity() < 1) {
+								cout << "This item is out of stock. It will not be added to you shopping cart." << endl;
+								continue;
+							}
+							Coat c = this->ctrl.getCart().getCurrentCoat();
+							this->ctrl.addCoatToCart(c);
+							cout << "\n\tTotal Cost: " << this->ctrl.getCart().totalCost() << endl;
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					case 3: {
+						try {
+							if (this->ctrl.getCart().noProducts()) {
+								cout << "No coats available." << endl;
+								break;
+							}
+							this->ctrl.nextCoatShopping();
+							Coat c = this->ctrl.getCart().getCurrentCoat();
+							cout << "\nNow showing: " << endl;
+							cout << "\tSize: " << c.getSize() << endl;
+							cout << "\tColour: " << c.getColour() << endl;
+							cout << "\tPrice: " << c.getPrice() << endl;
+							std::string availability = "";
+							if (c.getQuantity() > 3)
+								availability = "In Stock";
+							else if (c.getQuantity() <= 3 && c.getQuantity() > 0)
+								availability = "Limited Stock";
+							else availability = "Out of stock";
+							cout << "\tAvailability: " << availability << endl;
+							cout << "\n\tTotal Cost: " << this->ctrl.getCart().totalCost() << endl;
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					case 4: {
+						try {
+							UI::showCart();
+						}
+						catch (const char* msg) {
+							cerr << msg << endl;
+						}
+						break;
+					}
+					} //end of switch
+				} //
+			}    // end of user
+		}
+		catch (const char* msg) {
+			cerr << msg << endl;
+		}
 	}
 }

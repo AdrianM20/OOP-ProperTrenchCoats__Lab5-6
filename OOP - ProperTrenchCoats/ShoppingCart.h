@@ -14,15 +14,23 @@ private:
 public:
 	ShoppingCart();
 
+	void clearProducts();
+
 	void addAvailableCoats(const Product& coat);
 
 	void add(const Product& coat);
+
+	void start();
+	
+	void next();
 
 	Coat getCurrentCoat();
 
 	double totalCost();
 
-	DynamicVector<Product> getCartContents() const { return products; }
+	DynamicVector<Product> getCartContents() const { return cart; }
 
 	bool isEmpty();
+
+	bool noProducts();
 };

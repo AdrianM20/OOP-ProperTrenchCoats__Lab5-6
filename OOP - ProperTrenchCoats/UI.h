@@ -1,5 +1,6 @@
 #pragma once
 #include "Controller.h"
+#include <algorithm>
 
 class UI
 {
@@ -16,9 +17,12 @@ private:
 	static void printRepositoryMenu();
 	static void printShoppingCartMenu();
 
+	bool is_number(const std::string& s);
+
 	void addCoatToRepo();
 	void displayAllCoatsRepo();
 	void removeCoatFromRepo();
 	void updateCoatFromRepo();
 	void addSizeCoats();
+	void showCart();
 };

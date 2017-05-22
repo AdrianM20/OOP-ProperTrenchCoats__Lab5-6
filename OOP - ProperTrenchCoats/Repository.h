@@ -30,6 +30,8 @@ public:
 	*/
 	void removeCoatByID(const std::string& ID);
 
+	void sellCoatByID(const std::string& ID);
+
 	/*
 		Updates a coat info
 		Input: ID - string, c - Coat

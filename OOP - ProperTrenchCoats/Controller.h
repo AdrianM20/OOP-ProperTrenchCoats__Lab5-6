@@ -42,10 +42,17 @@ public:
 		Output: assembles a new version of the given coat and sents it to repository
 	*/
 	void updateCoatToRepository(const std::string& ID, const double& new_price, const int& new_quantity, const std::string& new_link);
-	
+
 	DynamicVector<Coat> getAllCoats() const { return repo.getCoats(); }
 
 	/// ---------- Shopping Cart ---------- ///
 
-	//void addCoatToCart(const Coat& coat);
+	void clearProducts();
+	void addAllAvailableCoats();
+	void addAllSizeCoats(const int& size);
+	void addCoatToCart(const Coat& c);
+	void startShopping();
+	void nextCoatShopping();
+	void buyProducts();
+	void eraseCart();
 };
