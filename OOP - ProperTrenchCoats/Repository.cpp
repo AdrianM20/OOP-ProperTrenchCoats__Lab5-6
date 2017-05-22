@@ -23,7 +23,7 @@ void Repository::removeCoatByID(const std::string & ID)
 		throw "Coat does now exist. Nothig was deleted.";
 	if (checkCoat.getQuantity() > 0) {
 		char* ex;
-		ex = "Cannod delete this coat. There are left in stock.";
+		ex = "Cannod delete this coat. There is at least one left in stock.";
 		throw ex;
 	}
 
@@ -36,6 +36,19 @@ void Repository::removeCoatByID(const std::string & ID)
 			break;
 		}
 	*/
+}
+
+void Repository::sellCoatByID(const std::string & ID)
+{
+	Coat checkCoat = findByID(ID);
+	Coat* coatsInDynamicVector = this->coats.getAllElems();
+	Coat newCoat{ checkCoat.getID(),checkCoat.getSize(), checkCoat.getColour(),checkCoat.getPrice(), checkCoat.getQuantity() - 1,checkCoat.getLink() };
+	for (int i = 0; i < this->coats.getSize(); i++) {
+		if (coatsInDynamicVector[i] == checkCoat) {
+			this->coats.update(i, newCoat);
+			break;
+		}
+	}
 }
 
 void Repository::updateCoat(const std::string & ID, const Coat & c)
@@ -65,4 +78,15 @@ Coat Repository::findByID(const std::string& ID)
 	}
 
 	return Coat{};
+}
+
+DynamicVector<Coat> Repository::getCoatsbySize(const int & size)
+{
+	DynamicVector<Coat> coats;
+	for (int i = 0; i < this->coats.getSize(); i++) {
+		Coat c = coats[i];
+		if (c.getSize() == size)
+			coats.add(c);
+	}
+	return coats;
 }

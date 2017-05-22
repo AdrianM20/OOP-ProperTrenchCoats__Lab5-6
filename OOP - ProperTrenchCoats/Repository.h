@@ -5,7 +5,7 @@
 class Repository
 {
 private:
-	DynamicVector coats;
+	DynamicVector<Coat> coats;
 
 public:
 	/*
@@ -30,6 +30,8 @@ public:
 	*/
 	void removeCoatByID(const std::string& ID);
 
+	void sellCoatByID(const std::string& ID);
+
 	/*
 		Updates a coat info
 		Input: ID - string, c - Coat
@@ -44,5 +46,13 @@ public:
 	*/
 	Coat findByID(const std::string& ID);
 
-	DynamicVector getCoats() const { return coats; }
+	/*
+		Gets coats having a given size
+		Input: size - int
+		Output: a vector containing the coats having the given size
+	*/
+	DynamicVector<Coat> getCoatsbySize(const int& size);
+
+	// Returns all coats
+	DynamicVector<Coat> getCoats() const { return coats; }
 };
