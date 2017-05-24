@@ -43,7 +43,7 @@ public:
 	*/
 	void updateCoatToRepository(const std::string& ID, const double& new_price, const int& new_quantity, const std::string& new_link);
 
-	DynamicVector<Coat> getAllCoats() const { return repo.getCoats(); }
+	std::vector<Coat> getAllCoats() const { return repo.getCoats(); }
 
 	/// ---------- Shopping Cart ---------- ///
 

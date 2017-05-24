@@ -29,16 +29,16 @@ void Controller::clearProducts()
 
 void Controller::addAllAvailableCoats()
 {
-	DynamicVector<Coat> coats = getAllCoats();
-	for (int i = 0; i < coats.getSize(); i++) {
+	std::vector<Coat> coats = getAllCoats();
+	for (int i = 0; i < coats.size(); i++) {
 		this->cart.addAvailableCoats(coats[i]);
 	}
 }
 
 void Controller::addAllSizeCoats(const int & size)
 {
-	DynamicVector<Coat> coats = getAllCoats();
-	for (int i = 0; i < coats.getSize(); i++) {
+	std::vector<Coat> coats = getAllCoats();
+	for (int i = 0; i < coats.size(); i++) {
 		if (coats[i].getSize() == size)
 			this->cart.addAvailableCoats(coats[i]);
 	}
@@ -61,8 +61,8 @@ void Controller::nextCoatShopping()
 
 void Controller::buyProducts()
 {
-	DynamicVector<Coat> coatsInCart = this->cart.getCartContents();
-	for (int i = 0; i < coatsInCart.getSize(); i++) {
+	std::vector<Coat> coatsInCart = this->cart.getCartContents();
+	for (int i = 0; i < coatsInCart.size(); i++) {
 		this->repo.sellCoatByID(coatsInCart[i].getID());
 	}
 	this->cart.clearCart();

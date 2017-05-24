@@ -68,9 +68,8 @@ void UI::addCoatToRepo()
 
 void UI::displayAllCoatsRepo()
 {
-	DynamicVector<Coat> elems = this->ctrl.getAllCoats();
-	Coat* coats = elems.getAllElems();
-	for (int i = 0; i < elems.getSize(); i++) {
+	std::vector<Coat> coats = this->ctrl.getAllCoats();
+	for (int i = 0; i < coats.size(); i++) {
 		cout << "Coat ID: " << coats[i].getID() << " ";
 		cout << "|| Size: " << coats[i].getSize() << " ";
 		cout << "|| Colour: " << coats[i].getColour() << " ";
@@ -128,9 +127,9 @@ void UI::addSizeCoats()
 
 void UI::showCart()
 {
-	DynamicVector<Coat> coatsInCart = this->ctrl.getCart().getCartContents();
+	std::vector<Coat> coatsInCart = this->ctrl.getCart().getCartContents();
 	cout << "\nProducts in shopping cart: " << endl;
-	for (int i = 0; i < coatsInCart.getSize(); i++) {
+	for (int i = 0; i < coatsInCart.size(); i++) {
 		cout << "Colour: " << coatsInCart[i].getColour() << " ";
 		cout << "|| Size: " << coatsInCart[i].getSize() << " ";
 		cout << "|| Price: " << coatsInCart[i].getPrice() << endl;

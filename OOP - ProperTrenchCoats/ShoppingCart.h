@@ -1,14 +1,15 @@
 #pragma once
 #include "DynamicVector.h"
 #include "Coat.h"
+#include <vector>
 
 typedef Coat Product;
 
 class ShoppingCart
 {
 private:
-	DynamicVector<Product> products; // products available coresponding to the size condition
-	DynamicVector<Product> cart; // shopping cart containing the chosen products
+	std::vector<Product> products; // products available coresponding to the size condition
+	std::vector<Product> cart; // shopping cart containing the chosen products
 	int current;
 	
 public:
@@ -40,7 +41,7 @@ public:
 	double totalCost();
 
 	// returns a vector containing all items from the shopping cart
-	DynamicVector<Product> getCartContents() const { return cart; }
+	std::vector<Product> getCartContents() const { return cart; }
 
 	// checks if the cart is empty
 	bool isEmpty();
