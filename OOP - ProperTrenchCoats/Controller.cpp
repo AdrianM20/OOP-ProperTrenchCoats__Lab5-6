@@ -1,4 +1,6 @@
 #include "Controller.h"
+#include <algorithm>
+#include <vector>
 
 /// ---------- Repository ---------- ///
 
@@ -29,19 +31,38 @@ void Controller::clearProducts()
 
 void Controller::addAllAvailableCoats()
 {
+	// C++11 method
+	//std::for_each(this->getAllCoats().begin(), this->getAllCoats().end(), this->cart.addAvailableCoats);
+	for (auto&& coat : this->getAllCoats()) {
+		this->cart.addAvailableCoats(coat);
+	}
+
+	/* Classic method
 	std::vector<Coat> coats = getAllCoats();
+	
 	for (int i = 0; i < coats.size(); i++) {
 		this->cart.addAvailableCoats(coats[i]);
 	}
+	*/
 }
 
 void Controller::addAllSizeCoats(const int & size)
 {
-	std::vector<Coat> coats = getAllCoats();
+	// C++11 method
+	std::vector<Coat> coats_source = this->getAllCoats();
+	std::vector<Coat> coats_dest;
+	std::copy_if(coats_source.begin(), coats_source.end(), std::back_inserter(coats_dest), [&](Coat c) {return c.getSize() == size; });
+	for (auto&& coat : coats_dest) {
+		this->cart.addAvailableCoats(coat);
+	}
+
+	// Classic method
+	/*std::vector<Coat> coats = getAllCoats();
 	for (int i = 0; i < coats.size(); i++) {
 		if (coats[i].getSize() == size)
 			this->cart.addAvailableCoats(coats[i]);
-	}
+	}*/
+	
 }
 
 void Controller::addCoatToCart(const Coat & c)
