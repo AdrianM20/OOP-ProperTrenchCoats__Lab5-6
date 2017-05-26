@@ -115,6 +115,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="ShoppingCart.cpp" />
+    <ClCompile Include="Tests.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Validators.cpp" />
   </ItemGroup>
@@ -124,6 +125,7 @@
     <ClInclude Include="DynamicVector.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="ShoppingCart.h" />
+    <ClInclude Include="Tests.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Validators.h" />
   </ItemGroup>
