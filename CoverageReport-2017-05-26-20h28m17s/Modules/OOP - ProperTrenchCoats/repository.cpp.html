@@ -1,0 +1,98 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>repository.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Repository.h"
+#include &lt;string&gt;
+#include &lt;sstream&gt;
+#include "Validators.h"
+
+using namespace std;
+
+void Repository::addNoCheck(const Coat&amp; c)
+<span style = "background-color:#fdd">{
+	this-&gt;coats.push_back(c);
+}</span>
+
+void Repository::addCoat(const Coat &amp; c)
+<span style = "background-color:#dfd">{
+	coatValidator(c);
+	this-&gt;coats.push_back(c);
+}</span>
+
+void Repository::removeCoatByID(const std::string &amp; ID)
+<span style = "background-color:#fdd">{
+	Coat checkCoat = findByID(ID);
+	if (checkCoat.getID().length() == 0)
+		throw "Coat does now exist. Nothig was deleted.";
+	if (checkCoat.getQuantity() &gt; 0) {</span>
+		char* ex;
+<span style = "background-color:#fdd">		ex = "Cannot delete this coat. There is at least one left in stock.";
+		throw ex;</span>
+	}
+
+<span style = "background-color:#fdd">	for (int i = 0; i &lt; this-&gt;coats.size(); i++)
+		if (this-&gt;coats[i] == checkCoat) {
+			this-&gt;coats.erase(this-&gt;coats.begin() + i);
+			break;
+		}
+}</span>
+
+void Repository::sellCoatByID(const std::string &amp; ID)
+<span style = "background-color:#fdd">{
+	Coat checkCoat = findByID(ID);
+	Coat newCoat{ checkCoat.getID(),checkCoat.getSize(), checkCoat.getColour(),checkCoat.getPrice(), checkCoat.getQuantity() - 1,checkCoat.getLink() };</span>
+	int i;
+<span style = "background-color:#fdd">	for (i = 0; i &lt; this-&gt;coats.size(); i++) {
+		if (this-&gt;coats[i] == checkCoat) {
+			this-&gt;coats.erase(this-&gt;coats.begin() + i);
+			break;</span>
+		}
+<span style = "background-color:#fdd">	}
+	this-&gt;coats.insert(this-&gt;coats.begin() + i, newCoat);
+}</span>
+
+void Repository::updateCoat(const std::string &amp; ID, const Coat &amp; c)
+<span style = "background-color:#fdd">{
+	Coat checkCoat = findByID(ID);
+	if (checkCoat.getID().length() == 0)
+		throw "Coat does not exist. No data was updated.";
+	coatValidator(c);</span>
+	int i;
+<span style = "background-color:#fdd">	for (i = 0; i &lt; this-&gt;coats.size(); i++)
+		if (this-&gt;coats[i] == checkCoat) {
+			this-&gt;coats.erase(this-&gt;coats.begin() + i);
+			break;
+		}
+	this-&gt;coats.insert(this-&gt;coats.begin() + i, c);
+}</span>
+
+Coat Repository::findByID(const std::string&amp; ID)
+<span style = "background-color:#fdd">{
+	for (int i = 0; i &lt; this-&gt;coats.size(); i++) {
+		Coat coat = coats[i];
+		if (coat.getID() == ID)
+			return coat;
+	}
+	return Coat{};
+}</span>
+
+std::vector&lt;Coat&gt; Repository::getCoatsbySize(const int &amp; size)
+<span style = "background-color:#fdd">{
+	std::vector&lt;Coat&gt; coats;
+	for (int i = 0; i &lt; this-&gt;coats.size(); i++) {
+		Coat c = coats[i];
+		if (c.getSize() == size)
+			coats.push_back(c);
+	}
+	return coats;
+}</span></pre>
+	</body>
+</html>

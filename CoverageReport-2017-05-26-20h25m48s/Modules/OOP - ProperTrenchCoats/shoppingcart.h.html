@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>shoppingcart.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#pragma once
+#include "DynamicVector.h"
+#include "Coat.h"
+#include &lt;vector&gt;
+
+typedef Coat Product;
+
+class ShoppingCart
+{
+private:
+	std::vector&lt;Product&gt; products; // products available coresponding to the size condition
+	std::vector&lt;Product&gt; cart; // shopping cart containing the chosen products
+	int current;
+	
+public:
+	// Constructor for shopping cart
+	ShoppingCart();
+
+	// clears the products vector
+	void clearProducts();
+
+	// clears the cart vector
+	void clearCart();
+
+	// adds a Coat to the products vector
+	void addAvailableCoats(const Product&amp; coat);
+
+	// adds a Coat to the cart vetor
+	void add(const Product&amp; coat);
+
+	// strats iterating through the available products
+	void start();
+	
+	// jumps to the next available product
+	void next();
+
+	// returns the current coat for the iterator
+	Coat getCurrentCoat();
+
+	// computes the total cost of the Coats in the shopping cart
+	double totalCost();
+
+	// returns a vector containing all items from the shopping cart
+<span style = "background-color:#fdd">	std::vector&lt;Product&gt; getCartContents() const { return cart; }</span>
+
+	// checks if the cart is empty
+	bool isEmpty();
+
+	// checks if there are no available products
+	bool noProducts();
+};</pre>
+	</body>
+</html>

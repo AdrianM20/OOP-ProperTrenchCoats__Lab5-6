@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>shoppingcart.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "ShoppingCart.h"
+
+ShoppingCart::ShoppingCart()
+<span style = "background-color:#fdd">{
+	this-&gt;current = 0;
+}</span>
+
+void ShoppingCart::clearProducts()
+<span style = "background-color:#fdd">{
+	this-&gt;products.clear();
+}</span>
+
+void ShoppingCart::clearCart()
+<span style = "background-color:#fdd">{
+	this-&gt;cart.clear();
+}</span>
+
+void ShoppingCart::addAvailableCoats(const Product &amp; coat)
+<span style = "background-color:#fdd">{
+	this-&gt;products.push_back(coat);
+}</span>
+
+void ShoppingCart::add(const Product &amp; coat)
+<span style = "background-color:#fdd">{
+	this-&gt;cart.push_back(coat);
+}</span>
+
+void ShoppingCart::start()
+<span style = "background-color:#fdd">{
+	if (this-&gt;products.empty())
+		return;
+	this-&gt;current = 0;
+	Coat currentCoat = this-&gt;getCurrentCoat();
+	currentCoat.show();
+}</span>
+
+void ShoppingCart::next()
+<span style = "background-color:#fdd">{
+	if (this-&gt;products.empty())
+		return;
+	this-&gt;current++;
+	Coat currentCoat = this-&gt;getCurrentCoat();
+	currentCoat.show();
+}</span>
+
+Coat ShoppingCart::getCurrentCoat()
+<span style = "background-color:#fdd">{
+	if (this-&gt;current == this-&gt;products.size())
+		this-&gt;current = 0;
+	return this-&gt;products[this-&gt;current];
+}</span>
+
+double ShoppingCart::totalCost()
+<span style = "background-color:#fdd">{
+	double cost = 0;
+	for (int i = 0; i &lt; this-&gt;cart.size(); i++)
+		cost += cart[i].getPrice();
+	return cost;
+}</span>
+
+bool ShoppingCart::isEmpty()
+<span style = "background-color:#fdd">{
+	return this-&gt;cart.empty();
+}</span>
+
+bool ShoppingCart::noProducts()
+<span style = "background-color:#fdd">{
+	return this-&gt;products.empty();
+}</span></pre>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>tests.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Tests.h"
+#include "DynamicVector.h"
+#include "Repository.h"
+#include "ShoppingCart.h"
+#include "Controller.h"
+
+void Tests::testCoat()
+<span style = "background-color:#dfd">{	</span>
+	// Test default constructor
+<span style = "background-color:#dfd">	Coat c1;
+	assert(c1.getID() == "");
+	assert(c1.getSize() == 0);
+	assert(c1.getColour() == "");
+	assert(c1.getPrice() == 0);
+	assert(c1.getQuantity() == 0);
+	assert(c1.getLink() == "");</span>
+
+	// Test constructor with parameters
+<span style = "background-color:#dfd">	Coat c2{ "BEI52", 52, "Beige", 399.98, 3, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]" };
+	assert(c2.getID() == "BEI52");
+	assert(c2.getSize() == 52);
+	assert(c2.getColour() == "Beige");
+	assert(c2.getPrice() == 399.98);
+	assert(c2.getQuantity() == 3);
+	assert(c2.getLink() == "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]");</span>
+	
+<span style = "background-color:#dfd">	Coat c3 = c2;
+	assert(c3 == c2);</span>
+
+<span style = "background-color:#dfd">	Coat c4{ "GRN45", 45, "Green", 200.00, 2, "http://google.com" };
+	assert(!(c4 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c5{ "BEI52", 45, "Green", 200.00, 2, "http://google.com" };
+	assert(!(c5 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c6{ "BEI52", 52, "Green", 200.00, 2, "http://google.com" };
+	assert(!(c6 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c7{ "BEI52", 52, "Beige", 200.00, 2, "http://google.com" };
+	assert(!(c7 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c8{ "BEI52", 52, "Beige", 399.98, 2, "http://google.com" };
+	assert(!(c8 == c2));
+}</span>
+
+void Tests::testRepository()
+<span style = "background-color:#dfd">{
+	Repository repo{};
+	Coat c{ "BEI52", 52, "Beige", 399.98, 3, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]" };
+	repo.addCoat(c);
+}</span>
+
+void Tests::testShoppingCart()
+<span style = "background-color:#dfd">{
+}</span>
+
+void Tests::testController()
+<span style = "background-color:#dfd">{
+}</span>
+
+void Tests::testAll()
+<span style = "background-color:#dfd">{
+	testCoat();
+	testRepository();
+	testShoppingCart();
+	testController();
+}</span></pre>
+	</body>
+</html>

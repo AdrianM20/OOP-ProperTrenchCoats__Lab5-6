@@ -1,0 +1,72 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>repository.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#pragma once
+#include "Coat.h"
+#include "DynamicVector.h"
+#include &lt;vector&gt;
+
+class Repository
+{
+private:
+	std::vector&lt;Coat&gt; coats;
+
+public:
+	/*
+		Default constructor.
+		Initializes an repository object
+	*/
+<span style = "background-color:#dfd">	Repository() {}</span>
+
+	void addNoCheck(const Coat&amp;c);
+
+	/*
+		Adds a coat to the repository
+		Input: c - Coat
+		Output: the coat is added to the repository
+	*/
+	void addCoat(const Coat&amp; c);
+
+	/*
+		Removes a coat from the repository
+		Input: ID - string
+		Output: removes the coat with that ID from the repository
+	*/
+	void removeCoatByID(const std::string&amp; ID);
+
+	void sellCoatByID(const std::string&amp; ID);
+
+	/*
+		Updates a coat info
+		Input: ID - string, c - Coat
+		Output: updates the coat with the given ID with data from the new Coat c
+	*/
+	void updateCoat(const std::string&amp; ID, const Coat&amp; c);
+
+	/*
+		Finds a coat by its ID.
+		Input: ID - string
+		Output: the coat that was found or an "empty" coat (all fields empty or 0), if nothing was found
+	*/
+	Coat findByID(const std::string&amp; ID);
+
+	/*
+		Gets coats having a given size
+		Input: size - int
+		Output: a vector containing the coats having the given size
+	*/
+	std::vector&lt;Coat&gt; getCoatsbySize(const int&amp; size);
+
+	// Returns all coats
+<span style = "background-color:#fdd">	std::vector&lt;Coat&gt; getCoats() const { return coats; }</span>
+};</pre>
+	</body>
+</html>
