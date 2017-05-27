@@ -1,0 +1,265 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>tests.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Tests.h"
+#include "Repository.h"
+#include "Validators.h"
+#include "ShoppingCart.h"
+#include "Controller.h"
+
+void Tests::testCoat()
+<span style = "background-color:#dfd">{	</span>
+	// Test default constructor
+<span style = "background-color:#dfd">	Coat c1;
+	assert(c1.getID() == "");
+	assert(c1.getSize() == 0);
+	assert(c1.getColour() == "");
+	assert(c1.getPrice() == 0);
+	assert(c1.getQuantity() == 0);
+	assert(c1.getLink() == "");</span>
+
+	// Test constructor with parameters
+<span style = "background-color:#dfd">	Coat c2{ "BEI52", 52, "Beige", 399.98, 3, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]" };
+	assert(c2.getID() == "BEI52");
+	assert(c2.getSize() == 52);
+	assert(c2.getColour() == "Beige");
+	assert(c2.getPrice() == 399.98);
+	assert(c2.getQuantity() == 3);
+	assert(c2.getLink() == "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]");</span>
+	
+	// Test == operator
+<span style = "background-color:#dfd">	Coat c3 = c2;
+	assert(c3 == c2);</span>
+
+<span style = "background-color:#dfd">	Coat c4{ "GRN45", 45, "Green", 200.00, 2, "http://google.com" };
+	assert(!(c4 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c5{ "BEI52", 45, "Green", 200.00, 2, "http://google.com" };
+	assert(!(c5 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c6{ "BEI52", 52, "Green", 200.00, 2, "http://google.com" };
+	assert(!(c6 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c7{ "BEI52", 52, "Beige", 200.00, 2, "http://google.com" };
+	assert(!(c7 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c8{ "BEI52", 52, "Beige", 399.98, 2, "http://google.com" };
+	assert(!(c8 == c2));</span>
+
+<span style = "background-color:#dfd">	Coat c9{ "BEI52", 52, "Beige", 399.98, 3, "http://google.com" };
+	assert(!(c9 == c2));
+}</span>
+
+void Tests::testRepository()
+<span style = "background-color:#dfd">{</span>
+	// Test default constructor
+<span style = "background-color:#dfd">	Repository repo{};</span>
+
+	// Test add to repo
+<span style = "background-color:#dfd">	Coat c1{ "BEI52", 52, "Beige", 399.98, 3, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]" };
+	Coat c2{ "PNK32", 32, "Pink", 159.95, 4, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8EZ_0149_013R.jpg],width[4000],height[4677],x[643],y[118],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]" };
+	repo.addCoat(c1);
+	repo.addCoat(c2);
+	assert(repo.getCoats().size() == 2);</span>
+
+<span style = "background-color:#dfd">	Coat c3{ "BRN44", 44, "Brown", 159.95, 0, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8EZ_0149_013R.jpg],width[4000],height[4677],x[643],y[118],type[FASHION_FRONT]&amp;hmver=0&amp;call=url[file:/product/main]" };
+	repo.addNoCheck(c3);
+	assert(repo.getCoats().size() == 3);</span>
+
+	// Test remove from repo
+<span style = "background-color:#dfd">	repo.removeCoatByID("BRN44");
+	assert(repo.getCoats().size() == 2);</span>
+	// Test remove exception 1
+<span style = "background-color:#dfd">	bool exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		repo.removeCoatByID("BRN44");</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+	// Test remove exception 2
+<span style = "background-color:#dfd">	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		repo.removeCoatByID("PNK32");</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test sell coat
+<span style = "background-color:#dfd">	repo.sellCoatByID("PNK32");
+	assert(repo.findByID("PNK32").getQuantity() == 3);</span>
+
+	// Test update coat
+<span style = "background-color:#dfd">	Coat c4{ "BEI52",52,"Beige",399.98,6,"http://google.com" };
+	repo.updateCoat("BEI52", c4);
+	assert(repo.findByID("BEI52").getQuantity() == 6);</span>
+	// Test update coat exception
+<span style = "background-color:#dfd">	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		repo.updateCoat("GRN50",c4);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test get coats by given size
+<span style = "background-color:#dfd">	std::vector&lt;Coat&gt; check_vector = repo.getCoatsbySize(52);
+	assert(check_vector.size() == 1);
+}</span>
+
+void Tests::testValidators()
+<span style = "background-color:#dfd">{</span>
+	// Test ID
+<span style = "background-color:#dfd">	Coat c1{ "BGR234",0,"",0,0,"" };
+	bool exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		coatValidator(c1);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test size
+<span style = "background-color:#dfd">	Coat c2{ "BGR23",0,"",0,0,"" };
+	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		coatValidator(c2);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test colour
+<span style = "background-color:#dfd">	Coat c3{ "BGR23",44,"",0,0,"" };
+	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		coatValidator(c3);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test price
+<span style = "background-color:#dfd">	Coat c4{ "BGR23",44,"Brown",0,0,"" };
+	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		coatValidator(c4);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test quantity
+<span style = "background-color:#dfd">	Coat c5{ "BGR23",44,"Brown",20,0,"" };
+	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		coatValidator(c5);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);</span>
+
+	// Test link
+<span style = "background-color:#dfd">	Coat c6{ "BGR23",44,"Brown",20,1,"" };
+	exceptionThrown = false;</span>
+	try {
+<span style = "background-color:#dfd">		coatValidator(c6);</span>
+	}
+<span style = "background-color:#dfd">	catch (const char* msg) {
+		exceptionThrown = true;
+	}
+	assert(exceptionThrown);
+}</span>
+
+void Tests::testShoppingCart()
+<span style = "background-color:#dfd">{</span>
+	// Test constructor
+<span style = "background-color:#dfd">	ShoppingCart cart{};</span>
+	
+	// Test add available products
+<span style = "background-color:#dfd">	Coat c1{ "BLU42", 42, "Blue",195.00,2,"http://google.com" };
+	Coat c2{ "ORG46", 46, "Orange",195.00,2,"http://google.com" };
+	cart.addAvailableCoats(c1);
+	cart.addAvailableCoats(c2);
+	assert(!(cart.noProducts()));</span>
+
+	// Test add coats to cart
+<span style = "background-color:#dfd">	cart.add(c1);
+	cart.add(c2);
+	assert(cart.getCartContents().size() == 2);</span>
+
+	// Test start iteration
+<span style = "background-color:#dfd">	cart.start();
+	assert(cart.getCurrentCoat() == c1);</span>
+	
+	// Test next iteration
+<span style = "background-color:#dfd">	cart.next();
+	assert(cart.getCurrentCoat() == c2);
+	cart.next();</span>
+
+	// Test total cost
+<span style = "background-color:#dfd">	assert(cart.totalCost() == 390.00);</span>
+
+	// Test clear available products and no products
+<span style = "background-color:#dfd">	cart.clearProducts();
+	assert(cart.noProducts());</span>
+
+	// Test clear cart and empty cart
+<span style = "background-color:#dfd">	cart.clearCart();
+	assert(cart.isEmpty());</span>
+
+	// Test start and next for empty cart
+<span style = "background-color:#dfd">	cart.start();
+	cart.next();
+}</span>
+
+void Tests::testController()
+<span style = "background-color:#dfd">{</span>
+	// Test constructor
+<span style = "background-color:#dfd">	Repository repo{};
+	Controller ctrl{ repo };</span>
+
+	// Test add to repo
+<span style = "background-color:#dfd">	ctrl.addCoatToRepository("BLU42", 42, "Blue", 195.00, 2, "http://google.com");
+	ctrl.addCoatToRepository("ORG46", 46, "Orange", 195.00, 2, "http://google.com");</span>
+	/*Coat c{ "ORG50", 50, "Orange", 250.00, 0, "http://google.com" };
+	ctrl.getRepo().addNoCheck(c);*/
+<span style = "background-color:#dfd">	assert(ctrl.getRepo().getCoats().size() == 2);</span>
+
+	// Test remove from repo
+	/*ctrl.removeCoatFromRepository("ORG50");
+	assert(ctrl.getRepo().getCoats().size() == 2);*/
+
+	// Test update to repo
+<span style = "background-color:#dfd">	Coat c1{ "ORG46", 46, "Orange", 245.00, 5, "http://youtube.com" };
+	ctrl.updateCoatToRepository("ORG46", 245.00, 5, "http://youtube.com");
+	assert(ctrl.getRepo().getCoats()[1] == c1);
+}</span>
+
+void Tests::testAll()
+<span style = "background-color:#dfd">{
+	testCoat();
+	testRepository();
+	testValidators();
+	testShoppingCart();
+	testController();
+}</span></pre>
+	</body>
+</html>

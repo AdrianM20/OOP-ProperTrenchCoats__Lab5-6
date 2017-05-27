@@ -1,0 +1,110 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>controller.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+	<body onload="prettyPrint()">
+        <h4></h4>
+		<pre class="prettyprint lang-cpp linenums">
+#include "Controller.h"
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+#include &lt;iterator&gt;
+
+/// ---------- Repository ---------- ///
+
+void Controller::addCoatToRepository(const std::string &amp; ID, const int &amp; size, const std::string &amp; colour, const double &amp; price, const int &amp; quantity, const std::string &amp; link)
+<span style = "background-color:#dfd">{
+	Coat coat{ ID, size, colour, price, quantity, link };
+	this-&gt;repo.addCoat(coat);
+}</span>
+
+void Controller::removeCoatFromRepository(const std::string &amp; ID)
+<span style = "background-color:#fdd">{
+	this-&gt;repo.removeCoatByID(ID);
+}</span>
+
+void Controller::updateCoatToRepository(const std::string &amp; ID, const double &amp; new_price, const int &amp; new_quantity, const std::string &amp; new_link)
+<span style = "background-color:#dfd">{
+	Coat existingCoat = this-&gt;repo.findByID(ID);
+	Coat newCoat{ ID, existingCoat.getSize(), existingCoat.getColour(), new_price, new_quantity, new_link };
+	this-&gt;repo.updateCoat(ID, newCoat);
+}</span>
+
+/// ---------- Shopping Cart ---------- ///
+
+void Controller::clearProducts()
+<span style = "background-color:#fdd">{
+	this-&gt;cart.clearProducts();
+}</span>
+
+void Controller::addAllAvailableCoats()
+<span style = "background-color:#fdd">{</span>
+	// C++11 method
+	//std::for_each(this-&gt;getAllCoats().begin(), this-&gt;getAllCoats().end(), this-&gt;cart.addAvailableCoats);
+<span style = "background-color:#fdd">	for (auto&amp;&amp; coat : this-&gt;getAllCoats()) {
+		this-&gt;cart.addAvailableCoats(coat);
+	}</span>
+
+	/* Classic method
+	std::vector&lt;Coat&gt; coats = getAllCoats();
+	
+	for (int i = 0; i &lt; coats.size(); i++) {
+		this-&gt;cart.addAvailableCoats(coats[i]);
+	}
+	*/
+<span style = "background-color:#fdd">}</span>
+
+void Controller::addAllSizeCoats(const int &amp; size)
+<span style = "background-color:#fdd">{</span>
+	// C++11 method
+<span style = "background-color:#fdd">	std::vector&lt;Coat&gt; coats_source = this-&gt;getAllCoats();
+	std::vector&lt;Coat&gt; coats_dest;
+	std::copy_if(coats_source.begin(), coats_source.end(), std::back_inserter(coats_dest), [&amp;](Coat c) {return c.getSize() == size; });
+	for (auto&amp;&amp; coat : coats_dest) {
+		this-&gt;cart.addAvailableCoats(coat);
+	}</span>
+
+	// Classic method
+	/*std::vector&lt;Coat&gt; coats = getAllCoats();
+	for (int i = 0; i &lt; coats.size(); i++) {
+		if (coats[i].getSize() == size)
+			this-&gt;cart.addAvailableCoats(coats[i]);
+	}*/
+	
+<span style = "background-color:#fdd">}</span>
+
+void Controller::addCoatToCart(const Coat &amp; c)
+<span style = "background-color:#fdd">{
+	this-&gt;cart.add(c);
+}</span>
+
+void Controller::startShopping()
+<span style = "background-color:#fdd">{
+	this-&gt;cart.start();
+}</span>
+
+void Controller::nextCoatShopping()
+<span style = "background-color:#fdd">{
+	this-&gt;cart.next();
+}</span>
+
+void Controller::buyProducts()
+<span style = "background-color:#fdd">{
+	std::vector&lt;Coat&gt; coatsInCart = this-&gt;cart.getCartContents();
+	for (int i = 0; i &lt; coatsInCart.size(); i++) {
+		this-&gt;repo.sellCoatByID(coatsInCart[i].getID());
+	}
+	this-&gt;cart.clearCart();
+	this-&gt;cart.clearProducts();
+}</span>
+
+void Controller::eraseCart()
+<span style = "background-color:#fdd">{
+	this-&gt;cart.clearCart();
+}</span></pre>
+	</body>
+</html>

@@ -77,7 +77,7 @@ std::vector<Coat> Repository::getCoatsbySize(const int & size)
 {
 	std::vector<Coat> coats;
 	for (int i = 0; i < this->coats.size(); i++) {
-		Coat c = coats[i];
+		Coat c = this->coats[i];
 		if (c.getSize() == size)
 			coats.push_back(c);
 	}
