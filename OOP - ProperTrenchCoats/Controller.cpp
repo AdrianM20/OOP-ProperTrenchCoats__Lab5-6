@@ -87,7 +87,7 @@ void Controller::buyProducts()
 	for (int i = 0; i < coatsInCart.size(); i++) {
 		this->repo.sellCoatByID(coatsInCart[i].getID());
 	}
-	this->cart.clearCart();
+	this->eraseCart();
 	this->cart.clearProducts();
 }
 

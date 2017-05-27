@@ -43,6 +43,9 @@ public:
 	// returns a vector containing all items from the shopping cart
 	std::vector<Product> getCartContents() const { return cart; }
 
+	// returns a vector containing all available products
+	std::vector<Product> getCartAvailable() const { return products; }
+
 	// checks if the cart is empty
 	bool isEmpty();
 
