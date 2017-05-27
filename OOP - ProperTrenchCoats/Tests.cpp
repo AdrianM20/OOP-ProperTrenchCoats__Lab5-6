@@ -197,7 +197,7 @@ void Tests::testShoppingCart()
 	// Test start iteration
 	//cart.start();
 	//assert(cart.getCurrentCoat() == c1);
-	//
+
 	//// Test next iteration
 	//cart.next();
 	//assert(cart.getCurrentCoat() == c2);
@@ -215,8 +215,8 @@ void Tests::testShoppingCart()
 	assert(cart.isEmpty());
 
 	// Test start and next for empty cart
-	cart.start();
-	cart.next();
+	/*cart.start();
+	cart.next();*/
 }
 
 void Tests::testController()
@@ -260,8 +260,8 @@ void Tests::testController()
 	assert(ctrl.getCart().getCartContents().size() == 1);
 
 	// Test start/next shopping
-	ctrl.startShopping();
-	ctrl.nextCoatShopping();
+	/*ctrl.startShopping();
+	ctrl.nextCoatShopping();*/
 	
 	// Test buy Products
 	ctrl.buyProducts();
