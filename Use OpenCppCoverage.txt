@@ -1,0 +1,1 @@
+OpenCppCoverage --sources "OOP - ProperTrenchCoats" -- "./x64/Debug/OOP - ProperTrenchCoats.exe"

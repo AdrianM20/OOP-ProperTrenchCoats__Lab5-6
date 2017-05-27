@@ -1,12 +1,15 @@
 #include <Windows.h>
 #include "UI.h"
 #include <crtdbg.h>
+#include "Tests.h"
 
 using namespace std;
 
 int main() 
 {
-	Repository repo{};
+	Tests::testAll();
+
+	/*Repository repo{};
 
 	Coat c1{ "BEI52", 52, "Beige", 399.98, 3, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8FZ_0205_037R.jpg],width[3811],height[4456],y[-11],type[FASHION_FRONT]&hmver=0&call=url[file:/product/main]" };
 	Coat c2{ "PNK32", 32, "Pink", 159.95, 4, "http://lp2.hm.com/hmprod?set=source[/environment/2016/8EZ_0149_013R.jpg],width[4000],height[4677],x[643],y[118],type[FASHION_FRONT]&hmver=0&call=url[file:/product/main]" };
@@ -22,7 +25,7 @@ int main()
 	repo.addNoCheck(c2);
 	repo.addNoCheck(c3);
 	repo.addNoCheck(c4);
-	//repo.addNoCheck(c5);
+	repo.addNoCheck(c5);
 	repo.addNoCheck(c6);
 	repo.addNoCheck(c7);
 	repo.addNoCheck(c8);
@@ -31,7 +34,7 @@ int main()
 
 	Controller ctrl{ repo };
 	UI ui{ ctrl };
-	ui.run();
+	ui.run();*/
 
 	//_CrtDumpMemoryLeaks();
 

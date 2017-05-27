@@ -1,11 +1,12 @@
 #pragma once
 #include "Coat.h"
 #include "DynamicVector.h"
+#include <vector>
 
 class Repository
 {
 private:
-	DynamicVector<Coat> coats;
+	std::vector<Coat> coats;
 
 public:
 	/*
@@ -51,8 +52,8 @@ public:
 		Input: size - int
 		Output: a vector containing the coats having the given size
 	*/
-	DynamicVector<Coat> getCoatsbySize(const int& size);
+	std::vector<Coat> getCoatsbySize(const int& size);
 
 	// Returns all coats
-	DynamicVector<Coat> getCoats() const { return coats; }
+	std::vector<Coat> getCoats() const { return coats; }
 };

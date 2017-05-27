@@ -7,27 +7,27 @@ ShoppingCart::ShoppingCart()
 
 void ShoppingCart::clearProducts()
 {
-	this->products.setSize(0);
+	this->products.clear();
 }
 
 void ShoppingCart::clearCart()
 {
-	this->cart.setSize(0);
+	this->cart.clear();
 }
 
 void ShoppingCart::addAvailableCoats(const Product & coat)
 {
-	this->products.add(coat);
+	this->products.push_back(coat);
 }
 
 void ShoppingCart::add(const Product & coat)
 {
-	this->cart.add(coat);
+	this->cart.push_back(coat);
 }
 
 void ShoppingCart::start()
 {
-	if (this->products.getSize() == 0)
+	if (this->products.empty())
 		return;
 	this->current = 0;
 	Coat currentCoat = this->getCurrentCoat();
@@ -36,7 +36,7 @@ void ShoppingCart::start()
 
 void ShoppingCart::next()
 {
-	if (this->products.getSize() == 0)
+	if (this->products.empty())
 		return;
 	this->current++;
 	Coat currentCoat = this->getCurrentCoat();
@@ -45,7 +45,7 @@ void ShoppingCart::next()
 
 Coat ShoppingCart::getCurrentCoat()
 {
-	if (this->current == this->products.getSize())
+	if (this->current == this->products.size())
 		this->current = 0;
 	return this->products[this->current];
 }
@@ -53,17 +53,17 @@ Coat ShoppingCart::getCurrentCoat()
 double ShoppingCart::totalCost()
 {
 	double cost = 0;
-	for (int i = 0; i < this->cart.getSize(); i++)
+	for (int i = 0; i < this->cart.size(); i++)
 		cost += cart[i].getPrice();
 	return cost;
 }
 
 bool ShoppingCart::isEmpty()
 {
-	return this->cart.getSize() == 0;
+	return this->cart.empty();
 }
 
 bool ShoppingCart::noProducts()
 {
-	return this->products.getSize() == 0;
+	return this->products.empty();
 }
